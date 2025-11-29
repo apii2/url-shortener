@@ -1,5 +1,8 @@
 from db import get_connection
-import re, random, string
+from dotenv import load_dotenv
+import re, random, string, os
+
+load_dotenv()
 
 URL_PATTERN = re.compile(r'^https://(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(?:/[^\s]*)?$')
 
@@ -9,8 +12,7 @@ def generateRandomString():
 def generateUniqueRandomString(cursor):
   while True:
     code = generateRandomString()
-    BASE_URL = 'https://localhost:5000'
-    shortUrl = f'{BASE_URL}/{code}'
+    shortUrl = f'{os.getenv('BASE_URL')}/{code}'
     cursor.execute('SELECT * FROM Links WHERE short_url=%s',(shortUrl,))
     if not cursor.fetchone():
       return shortUrl
