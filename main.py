@@ -49,10 +49,12 @@ def main():
 
         print(f"Your url has been shortened successfully!\nThe short url is: {shortUrl}")
 
-        # cursor.execute("SELECT * FROM Links")
-        # print('ID\tOriginal Url\t\t\t\t\t\t\t\t\t\tShort Url')
-        # for url in cursor.fetchall():
-        #   print(f"{url['id']}\t{url['original_url']}\t{url['short_url']}")
+        toShow = input('\nDo u want to view all the urls u shortened?Y/N  ')
+        if toShow.lower()=='y':
+          cursor.execute("SELECT * FROM Links")
+          print('ID\tOriginal Url\t\t\t\t\t\t\t\t\t\tShort Url')
+          for url in cursor.fetchall():
+            print(f"{url['id']}\t{url['original_url']}\t{url['short_url']}")
       conn.close()
 
       break

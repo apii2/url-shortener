@@ -1,12 +1,13 @@
 from flask import Flask, redirect
 from db import get_connection
+import os
 
 app = Flask(__name__)
 
 @app.route('/<code>')
 def redirect_short_url(code):
-  short_url = f"https://localhost:5000/{code}"
-  print('code',code)
+  short_url = f"{os.getenv('BASE_URL')}/{code}"
+  print('short...',os.getenv('BASE_URL'))
 
   conn = get_connection()
   with conn.cursor() as cursor:
